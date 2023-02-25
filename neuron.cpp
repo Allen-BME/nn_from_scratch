@@ -16,6 +16,19 @@ double Neuron::feedforward(const double* inputs) const {
     return sigmoid(total);    
 }
 
+void Neuron::setWeights(const double* newWeights, int newNumWeights) {
+    numWeights = newNumWeights;
+    delete weights;
+    weights = new double[numWeights];
+    for (int i = 0; i < numWeights; i++) {
+        weights[i] = newWeights[i];
+    }
+}
+
+void Neuron::setBias(double newBias) {
+    bias = newBias;
+}
+
 double sigmoid(double x) {
     return 1.0 / (1.0 + exp(-x));
 }

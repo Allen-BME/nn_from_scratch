@@ -1,17 +1,12 @@
 #include <iostream>
-#include "neuron.hpp"
+#include "network.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    int numWeights = 2;
-    double weights[2] = {0, 1};
-    double bias = 4.0;
-
-    Neuron n(weights, numWeights, bias);
-
+    ExampleNetwork network;
     double x[2] = {2, 3};
-    cout << n.feedforward(x) << endl;
+    cout << network.feedforward(x) << endl;
 
     return 0;
 }

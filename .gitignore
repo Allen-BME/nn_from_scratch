@@ -1,0 +1,5 @@
+# ignore shell scripts
+*.sh
+
+# ignore token
+token.txt

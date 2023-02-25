@@ -1,4 +1,4 @@
-# Neural Network from Scratch
+# Neural Network
 
 Making a neural network from scratch in C++ following 
 [this tutorial](https://victorzhou.com/blog/intro-to-neural-networks/).

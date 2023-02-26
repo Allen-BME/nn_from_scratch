@@ -1,5 +1,5 @@
 #include "neuron.hpp"
-#include "vector_math.hpp"
+#include "nn_math.hpp"
 
 Neuron::Neuron(
         const double* initWeights, int initNumWeights, double initBias) {
@@ -27,8 +27,4 @@ void Neuron::setWeights(const double* newWeights, int newNumWeights) {
 
 void Neuron::setBias(double newBias) {
     bias = newBias;
-}
-
-double sigmoid(double x) {
-    return 1.0 / (1.0 + exp(-x));
 }

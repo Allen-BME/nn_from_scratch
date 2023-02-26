@@ -1,11 +1,8 @@
 #ifndef NEURON_H
 #define NEURON_H
 
-#include <cmath>
-#include "vector_math.hpp"
+#include "nn_math.hpp"
 using namespace std;
-
-double sigmoid(double x);
 
 class Neuron {
     public:

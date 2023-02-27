@@ -2,21 +2,33 @@
 #define NETWORK_H
 
 #include "neuron.hpp"
-#include <list>
+#include <vector>
+#include <eigen3/Eigen/Dense>
+
+class Layer {
+    public:
+        Layer(int numNeurons, int numInputs);
+    private:
+        int numNeurons;
+        Matrix<double> layer;
+}
 
 class NeuralNetwork {
     public:
         NeuralNetwork();
         void addLayer(int numNeurons);
-        double feedforward(const double* x) const;
+        double feedforward( x) const;
         void train(const double** data, const double* y_true);
     private:
         int numLayers;
-        list<Neuron*> layers;
+        vector<Matrix<double>> layers; // vector of matrices, 1 matrix = 1 layer
         list<int> layerLengths;
 };
 
+
+
 /* Example neural network:
+ * !! this is obviously a pretty terrible implementation
  * - 2 inputs
  * - 1 hidden layer (h1, h2)
  * - output layer (o1)

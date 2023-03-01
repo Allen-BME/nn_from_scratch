@@ -22,8 +22,6 @@ private:
     std::vector<int> layerSizes; 
     std::vector<Eigen::MatrixXd> weights; 
     std::vector<Eigen::MatrixXd> biases; 
-    Eigen::MatrixXd matrixSigmoid(const Eigen::MatrixXd& x); 
-    Eigen::MatrixXd matrixSigmoidDerivative(const Eigen::MatrixXd& x);
+    Eigen::MatrixXd sigmoid(const Eigen::MatrixXd& x); 
+    Eigen::MatrixXd sigmoidDerivative(const Eigen::MatrixXd& x);
 };
-
-double sigmoid(double x);

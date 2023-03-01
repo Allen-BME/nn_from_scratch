@@ -9,5 +9,5 @@ int main(int argc, char* argv[]) {
 
     Eigen::MatrixXd inputs(5, 1);
     inputs << 1, 2, 3, 4, 5;
-    nn.predict(inputs);
+    cout << nn.predict(inputs) << endl;
 }

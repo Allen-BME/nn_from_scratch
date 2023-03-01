@@ -42,12 +42,12 @@ void NeuralNetwork::train(
 Eigen::MatrixXd NeuralNetwork::predict(const Eigen::MatrixXd& inputs) {
     Eigen::MatrixXd activations = inputs;
     for (int i = 0; i < static_cast<int>(layerSizes.size() - 1); i++) {
-        activations = matrixSigmoid(weights[i] * activations + biases[i]);
+        activations = sigmoid(weights[i] * activations + biases[i]);
     }
     return activations;
 }
 
-Eigen::MatrixXd NeuralNetwork::matrixSigmoid(const Eigen::MatrixXd& x) {
+Eigen::MatrixXd NeuralNetwork::sigmoid(const Eigen::MatrixXd& x) {
     return x.unaryExpr(
         [](double x) {
             return 1.0 / (1.0 - exp(-x));
@@ -55,6 +55,11 @@ Eigen::MatrixXd NeuralNetwork::matrixSigmoid(const Eigen::MatrixXd& x) {
             );
 }
 
-double sigmoid(double x) {
-    return 1.0 / (1.0 - exp(-x));
+Eigen::MatrixXd NeuralNetwork::sigmoidDerivative(const Eigen::MatrixXd& x) {
+   return x.unaryExpr(
+        [](double x) {
+            double sigmoid = (1.0 / (1.0 - exp(-x)));
+            return sigmoid * (1.0 - sigmoid);
+        }
+           );
 }

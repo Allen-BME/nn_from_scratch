@@ -51,7 +51,7 @@ void NeuralNetwork::train(
         double error = errorMetric(sampleOutput, sampleTarget);
 
         // backpropogate
-
+        
     }
 
 }

@@ -17,3 +17,16 @@ TODO:
 - test the `predict` method in `NeuralNetwork`
 - test different variations of networks 
 (i.e. different numbers of layers, inputs, outputs, etc.)
+
+Long-term goals (emphasis on *long-term*):
+
+- utilize a testing framework to more rigorously test my implementation
+- implement other "types" of networks
+(could start by learning what other types there even are)
+
+If whoever is reading this wants to give me feedback:
+
+1. any immediate problems with my implementation?
+2. how can I "C++ify" my code?
+3. how can I improve memory + time efficiency?
+4. any of my formatting go against common best practices?

@@ -1,50 +1,48 @@
+#include <eigen3/Eigen/Dense>
 #include "network.hpp"
-#include "neuron.hpp"
-#include <list>
 
-NeuralNetwork::NeuralNetwork() {
-   numLayers = 0;
-   /* layers = list<Neuron*>;
-   layerLengths = list<int>; */
-}
-
-void NeuralNetwork::addLayer(int numNeurons) {
-    numLayers++;
-    layers.push_back(new Neuron[numNeurons]);
-    layerLengths.push_back(numNeurons);
-}
-
-double NeuralNetwork::feedforward(const double* x) const {
-    // 1. the first hidden layer takes the input x
-    // 2. each following layer (including output) 
-    //    takes the previous layer's output
-
-    
-
-    int i = 0;
-    list<Neuron*>::iterator it;
-    for (it = layers.begin(); it != layers.end(); ++it) {
-        for (int j = 0; j < layerLengths[i]; j++) {
-            (*it)[j] = (*it)->feedforward(x);
-        }
-        i++;
+NeuralNetwork::NeuralNetwork(
+        int numInputNeurons,int numHiddenLayers, 
+        int* numNeuronsPerHiddenLayer, int numOutputNeurons):
+        layerSizes(numHiddenLayers + 2),
+        weights(numHiddenLayers + 1),
+        biases(numHiddenLayers + 1) 
+{
+    layerSizes[0] = numInputNeurons;
+    layerSizes[numHiddenLayers + 1] = numOutputNeurons;
+    for (int i = 1; i <= numHiddenLayers; i++) {
+        layerSizes[i] = numNeuronsPerHiddenLayer[i];
     }
+
+    for (int i = 0; i < numHiddenLayers + 1; i++) {
+        int rows = layerSizes[i]; // num rows = num input neurons
+        int cols = layerSizes[i + 1]; // num weights = num neurons next layer
+        weights[i] = Eigen::MatrixXd::Random(rows, cols);
+        biases[i] = Eigen::MatrixXd::Random(1, cols);
+    }
+
 }
 
-// simple example from tutorial
-ExampleNetwork::ExampleNetwork() {
-   double weights[2] = {0, 1};
-   h1.setWeights(weights, 2);
-   h1.setBias(0);
-   h2.setWeights(weights, 2);
-   h2.setBias(0);
-   o1.setWeights(weights, 2);
-   o1.setBias(0);
+void NeuralNetwork::train(
+        const Eigen::MatrixXd& inputs,
+        const Eigen::MatrixXd& targets,
+        int numEpochs,
+        double learningRate) {
+
+    // backprop
+
 }
 
-double ExampleNetwork::feedforward(const double* inputs) {
-    double out_h1 = h1.feedforward(inputs);
-    double out_h2 = h2.feedforward(inputs);
-    double hiddenLayerOutputs[2] = {out_h1, out_h2};
-    return o1.feedforward(hiddenLayerOutputs);
+Eigen::MatrixXd NeuralNetwork::predict(const Eigen::MatrixXd& inputs) {
+    Eigen::MatrixXd activations = inputs;
+    for (int i = 0; i < (layerSizes.size() - 1; i++) {
+        activations = sigmoid(weights[i] * activations + biases[i]);
+    }
+    return activations;
+}
+
+Eigen::MatrixXd NeuralNetwork::uj[
+
+sigmoid(const Eigen::MatrixXd& x) {
+    return x.unaryExpr(
 }

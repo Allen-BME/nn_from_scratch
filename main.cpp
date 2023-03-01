@@ -1,12 +1,8 @@
-#include <iostream>
+#include <eigen3/Eigen/Dense>
 #include "network.hpp"
-using namespace std;
+#include <iostream>
 
 int main(int argc, char* argv[]) {
-
-    ExampleNetwork network;
-    double x[2] = {2, 3};
-    cout << network.feedforward(x) << endl;
-
-    return 0;
+    int hiddenLayerSizes[5] = {5, 5, 4, 4, 3};
+    NeuralNetwork nn(5, 5, hiddenLayerSizes, 2);
 }

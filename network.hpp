@@ -5,10 +5,12 @@
 class NeuralNetwork {
 public:
     NeuralNetwork(
-            int numInputNeurons, 
-            int numHiddenLayers,
-            int* numNeuronsPerHiddenLayer,
-            int numOutputNeurons
+            //int numInputNeurons, 
+            //int numHiddenLayers,
+            //int* numNeuronsPerHiddenLayer,
+            //int numOutputNeurons,
+            Eigen::RowVectorXd initTopology,
+            double (*initErrorMetric)(Eigen::MatrixXd, Eigen::MatrixXd)
         );
     void train(
             const Eigen::MatrixXd& inputs,
@@ -19,9 +21,12 @@ public:
     Eigen::MatrixXd predict(const Eigen::MatrixXd& inputs);
 
 private:
-    std::vector<int> layerSizes; 
+    Eigen::VectorXd topology; 
     std::vector<Eigen::MatrixXd> weights; 
     std::vector<Eigen::MatrixXd> biases; 
     Eigen::MatrixXd sigmoid(const Eigen::MatrixXd& x); 
     Eigen::MatrixXd sigmoidDerivative(const Eigen::MatrixXd& x);
+    double (*errorMetric)(Eigen::MatrixXd, Eigen::MatrixXd);
 };
+
+double meanSquaredError(Eigen::MatrixXd predictions, Eigen::MatrixXd targets);

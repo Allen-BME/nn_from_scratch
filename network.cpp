@@ -1,5 +1,8 @@
 #include <eigen3/Eigen/Dense>
 #include "network.hpp"
+#include <cmath>
+#include <iostream>
+using namespace std;
 
 NeuralNetwork::NeuralNetwork(
         int numInputNeurons,int numHiddenLayers, 
@@ -35,14 +38,24 @@ void NeuralNetwork::train(
 
 Eigen::MatrixXd NeuralNetwork::predict(const Eigen::MatrixXd& inputs) {
     Eigen::MatrixXd activations = inputs;
-    for (int i = 0; i < (layerSizes.size() - 1; i++) {
-        activations = sigmoid(weights[i] * activations + biases[i]);
+    for (int i = 0; i < static_cast<int>(layerSizes.size() - 1); i++) {
+        cout << weights[i];
+        cout << endl << "----" << endl;
+        cout << activations;
+        cout << endl << "2----" << endl;
+        activations = matrixSigmoid(weights[i] * activations + biases[i]);
     }
     return activations;
 }
 
-Eigen::MatrixXd NeuralNetwork::uj[
-
-sigmoid(const Eigen::MatrixXd& x) {
+Eigen::MatrixXd NeuralNetwork::matrixSigmoid(const Eigen::MatrixXd& x) {
     return x.unaryExpr(
+        [](double x) {
+            return 1.0 / (1.0 - exp(-x));
+        }
+            );
+}
+
+double sigmoid(double x) {
+    return 1.0 / (1.0 - exp(-x));
 }

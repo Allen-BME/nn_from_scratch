@@ -4,10 +4,10 @@ Making a neural network from scratch in C++.
 
 Resources Used:
 
-- [Machine Learning for Beginners: An Introduction to Neural Networks]
+- [Machine Learning for Beginners: An Introduction to Neural Networks]\
 (https://victorzhou.com/blog/intro-to-neural-networks/).
 - [ChatGPT](https://chat.openai.com/chat)
-- [ML – Neural Network Implementation in C++ From Scratch]
+- [ML – Neural Network Implementation in C++ From Scratch]\
 (https://www.geeksforgeeks.org/ml-neural-network-implementation-in-c-from-scratch/)
 
 TODO:

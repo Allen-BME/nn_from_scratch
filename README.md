@@ -9,6 +9,8 @@ Resources Used:
 - [ChatGPT](https://chat.openai.com/chat)
 - [Neural Network Implementation in C++ From Scratch\
 ](https://www.geeksforgeeks.org/ml-neural-network-implementation-in-c-from-scratch/)
+- [Neural Networks series by 3blue1brown\
+](https://youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 
 TODO:
 

@@ -1,12 +1,11 @@
 #include <eigen3/Eigen/Dense>
 #include "network.hpp"
 #include <cmath>
+#include <vector>
 // #include <iostream>
 // using namespace std;
 
 NeuralNetwork::NeuralNetwork(
-        //int numInputNeurons,int numHiddenLayers, 
-        //int* numNeuronsPerHiddenLayer, int numOutputNeurons,
         Eigen::RowVectorXd initTopology,
         double (*initErrorMetric)(Eigen::MatrixXd, Eigen::MatrixXd)):
         topology(initTopology.size()),
@@ -17,13 +16,6 @@ NeuralNetwork::NeuralNetwork(
     int numWeights = initTopology.size() - 1;
 
     topology = initTopology;
-    /*
-    layerSizes[0] = numInputNeurons;
-    layerSizes[numWeights] = numOutputNeurons;
-
-    for (int i = 0; i < numHiddenLayers; i++) {
-        layerSizes[i+1] = numNeuronsPerHiddenLayer[i];
-    } */
 
     for (int i = 0; i < numWeights; i++) {
         int numInputs = topology[i]; 
@@ -40,20 +32,49 @@ void NeuralNetwork::train(
         int numEpochs,
         double learningRate) {
 
-    for (int i = 0; i < inputs.cols(); i++) {
+    // for each epoch
+    for (int epoch = 0; epoch < numEpochs; epoch++) {
+        double totalError = 0.0;
+    
+        // for each sample
+        for (int i = 0; i < inputs.cols(); i++) {
 
-        // feed sample forward
-        Eigen::MatrixXd inputSample = inputs.col(i);
-        Eigen::MatrixXd sampleTarget = targets.col(i);
-        Eigen::MatrixXd sampleOutput = predict(inputs);
+            // forward propogate
+            Eigen::MatrixXd input = inputs.col(i);
+            std::vector<Eigen::MatrixXd> activations = {input};
+            std::vector<Eigen::MatrixXd> zs;
 
-        // calculate error
-        double error = errorMetric(sampleOutput, sampleTarget);
+            int numLayers = topology.size() - 1;
+            int numHiddenLayers = numLayers - 1;
 
-        // backpropogate
-        
+            // track z and activations for each layer
+            for (int layer = 0; layer < numLayers; i++) {
+                Eigen::MatrixXd z = weights[layer] * activation + biases[layer];
+                zs.push_back(z);
+                activation = sigmoid(z);
+                activations.push_back(activation);
+            }
+
+            // backpropogate
+            Eigen::MatrixXd error = errorMetric(
+                    activations.back(), targets.col(i));
+            totalError += error.sum();
+
+            // delta for output layer
+            std::vector<Eigen::MatrixXd> deltas;
+            deltas.push_back(error.cwiseProduct(sigmoidDerivative(zs.back())));
+
+            // delta for each layer
+            for (int layer = numHiddenLayers; layer > 0; layer--) {
+                Eigen::MatrixXd delta =
+                    weights[layer].transpose() * deltas.back();
+                deltas.push_back(
+                        delta.cwiseProduct(sigmoidDerivative(za[layer-1])));
+
+            }
+            
+        }
     }
-
 }
 
 Eigen::MatrixXd NeuralNetwork::predict(const Eigen::MatrixXd& inputs) {

@@ -5,10 +5,6 @@
 class NeuralNetwork {
 public:
     NeuralNetwork(
-            //int numInputNeurons, 
-            //int numHiddenLayers,
-            //int* numNeuronsPerHiddenLayer,
-            //int numOutputNeurons,
             Eigen::RowVectorXd initTopology,
             double (*initErrorMetric)(Eigen::MatrixXd, Eigen::MatrixXd)
         );
